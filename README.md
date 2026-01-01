@@ -67,11 +67,11 @@ This approach:
                          ┌──────────────┐    ┌──────────────┐   ┌──────────────┐
                          │ ChromeDriver │    │ FirefoxDriver│   │  EdgeDriver  │
                          └──────────────┘    └──────────────┘   └──────────────┘
-                                  │
-                                  ▼
-                         ┌────────────────────────────┐
-                         │     WebDriverManager        │
-                         │ (Driver Binary Management)  │
-                         └────────────────────────────┘
+                                  │                  │                  │
+                                  ▼                  ▼                  ▼
+                                       ┌────────────────────────────┐
+                                       │     WebDriverManager       │
+                                       │ (Driver Binary Management) │
+                                       └────────────────────────────┘
 
 
