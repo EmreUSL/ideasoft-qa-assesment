@@ -1,5 +1,6 @@
 package core.driver;
 
+import config.ConfigurationManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,7 +13,7 @@ public class DriverManager {
 
      private DriverManager() {}
 
-     public static WebDriver initDriver(BrowserType browserType) {
+     private static WebDriver initDriver(BrowserType browserType) {
          if (driver.get() == null) {
              switch (browserType) {
                  case CHROME:
@@ -32,6 +33,11 @@ public class DriverManager {
              }
          }
          return getDriver();
+     }
+
+     public static WebDriver initDriver() {
+        BrowserType browser = ConfigurationManager.getBrowser();
+        return initDriver(browser);
      }
 
      public static WebDriver getDriver() {
