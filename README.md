@@ -74,4 +74,59 @@ This approach:
                                        │ (Driver Binary Management) │
                                        └────────────────────────────┘
 
+```
 
+
+## ⚙️ Configuration Management
+
+This framework uses a layered and type-safe configuration system to keep environment-specific values out of test code and support scalable, CI/CD-friendly execution.
+
+📂 Structure
+src/main/java
+ └── config
+     ├── ConfigReader.java
+     ├── ConfigKeys.java
+     └── ConfigurationManager.java
+
+src/test/resources
+ └── config
+     └── config.properties
+
+🧩 config.properties
+browser=chrome
+baseUrl=https://example.com
+headless=false
+
+
+All environment-related values are managed from a single place.
+
+## 📖 ConfigReader
+
+Loads config.properties once at startup and provides raw values.
+Fails fast if the file or a key is missing.
+
+## 🗝 ConfigKeys
+
+Defines all allowed configuration keys using enums to avoid magic strings and typos.
+
+## 🧠 ConfigurationManager
+
+Acts as a single entry point for accessing configuration values across the framework.
+Handles type conversion (enum, boolean) and validation.
+
+BrowserType browser = ConfigurationManager.getBrowser();
+String baseUrl = ConfigurationManager.getBaseUrl();
+boolean headless = ConfigurationManager.isHeadless();
+
+## 🔄 Configuration Flow
+config.properties → ConfigReader → ConfigurationManager → Framework Components
+
+## ✅ Benefits
+
+No hard-coded values in tests
+
+Type-safe and centralized configuration
+
+Easy environment and browser switching
+
+CI/CD ready
