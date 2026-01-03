@@ -138,3 +138,53 @@ config.properties → ConfigReader → ConfigurationManager → Framework Compon
 - Easy environment and browser switching
 
 - CI/CD ready
+
+## 🔹 UIActions & WaitActions Layers
+
+The framework introduces two dedicated layers to manage UI synchronization and user interactions in a clean, consistent, and maintainable way.
+
+## 🔸 WaitActions
+
+WaitActions is responsible for handling all explicit wait operations within the framework.
+It removes the need for hard-coded waits and ensures that elements are in the correct state before any interaction occurs.
+
+### Responsibilities
+
+- Handle explicit waits using By locators
+
+- Provide reusable wait methods (visibility, clickability, presence)
+
+- Centralize synchronization logic to avoid duplication
+
+- Improve test stability in dynamic and asynchronous UI environments
+
+All wait logic is managed internally by the framework.
+Tests and Page Object classes never handle waits directly.
+
+## 🔸 UIActions
+
+UIActions is the main interaction layer built on top of WaitActions.
+It encapsulates all Selenium UI operations and applies retry and fallback mechanisms to reduce flaky test behavior.
+
+### Key Features
+
+- Centralized UI interaction methods (click, type, scroll, hover, etc.)
+
+- Built-in retry mechanism for unstable UI actions
+
+- JavaScript click fallback for edge-case scenarios
+
+- Clear separation between test logic and WebDriver usage
+
+- Fully compatible with parallel execution and CI/CD pipelines
+
+Example Usage
+```text
+UIActions.click(loginButton);
+UIActions.type(usernameInput, "testuser");
+UIActions.type(passwordInput, "password");
+UIActions.click(loginSubmitButton);
+```
+
+Page Object classes are responsible only for defining locators and business flows.
+Direct WebDriver usage is restricted to core framework layers.
