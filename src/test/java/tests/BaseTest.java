@@ -4,11 +4,10 @@ import assertions.AssertActions;
 import assertions.VerifyActions;
 import config.ConfigurationManager;
 import core.driver.DriverManager;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import core.listener.TestListener;
+import org.testng.annotations.*;
 
+@Listeners(TestListener.class)
 public abstract class BaseTest {
 
     @BeforeMethod

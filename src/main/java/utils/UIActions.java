@@ -2,6 +2,7 @@ package utils;
 
 
 import core.driver.DriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -31,10 +32,13 @@ public class UIActions {
         );
     }
 
+    @Step(value = "Click on element: {locator}")
     public static void click(By locator) {
         try {
             executeWithRetry(() -> {
-                WaitActions.waitForClickable(locator).click();
+                WebElement element = WaitActions.waitForClickable(locator);
+                element.click();
+                AllureStepUtil.captureStepSuccess(element.getTagName());
                 return null;
             }, "Click");
         } catch (RuntimeException e) {
@@ -42,6 +46,7 @@ public class UIActions {
         }
     }
 
+    @Step(value = "Type '{text}' into element: {locator}")
     public static void type(By locator, String text) {
         executeWithRetry(() -> {
             WebElement element = WaitActions.waitForVisible(locator);
@@ -51,6 +56,7 @@ public class UIActions {
         }, "Type");
     }
 
+    @Step("Get text from element: {locator}")
     public static String getText(By locator) {
         return executeWithRetry(
                 () -> WaitActions.waitForVisible(locator).getText(),

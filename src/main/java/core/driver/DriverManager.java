@@ -13,7 +13,7 @@ public class DriverManager {
 
      private DriverManager() {}
 
-     private static WebDriver initDriver(BrowserType browserType) {
+     private static void initDriver(BrowserType browserType) {
          if (driver.get() == null) {
              switch (browserType) {
                  case CHROME:
@@ -32,12 +32,12 @@ public class DriverManager {
                      throw new RuntimeException("Unknown browser type: " + browserType);
              }
          }
-         return getDriver();
+         getDriver();
      }
 
-     public static WebDriver initDriver() {
+     public static void initDriver() {
         BrowserType browser = ConfigurationManager.getBrowser();
-        return initDriver(browser);
+        initDriver(browser);
      }
 
      public static WebDriver getDriver() {
