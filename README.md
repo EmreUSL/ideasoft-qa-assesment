@@ -188,3 +188,79 @@ UIActions.click(loginSubmitButton);
 
 Page Object classes are responsible only for defining locators and business flows.
 Direct WebDriver usage is restricted to core framework layers.
+
+## ✅ Assertion & Verification Layer
+
+This framework includes a dedicated assertion and verification layer to keep
+test cases clean, readable, and focused on business expectations instead of
+technical assertion details.
+
+Assertions are centralized to improve maintainability, reporting quality,
+and parallel execution safety.
+
+---
+
+### 🔹 AssertActions (Hard Assertions)
+
+`AssertActions` provides hard assertions for critical validations.
+When a hard assertion fails, the test execution stops immediately.
+
+Typical use cases:
+- Mandatory validations
+- Preconditions
+- Critical business rules
+
+Example usage:
+
+```java
+AssertActions.assertTrue(
+    UIActions.isDisplayed(LoginPage.ERROR_MESSAGE),
+    "Error message should be visible"
+);
+```
+
+### 🔹 VerifyActions (Soft Assertions)
+
+`VerifyActions` is built on top of TestNG `SoftAssert` and allows multiple
+validations within a single test without stopping execution immediately.
+
+#### Key Features
+- Multiple assertions per test
+- Thread-safe implementation using `ThreadLocal`
+- Suitable for parallel test execution
+- Aggregated failure reporting
+
+#### Example Usage
+```java
+VerifyActions.verifyEquals(
+    UIActions.getText(LoginPage.ERROR_MESSAGE),
+    "Invalid credentials",
+    "Error message text mismatch"
+);
+```
+
+### 🔹 Soft Assertion Lifecycle
+
+All soft assertions are automatically validated at the end of each test
+through the `BaseTest` lifecycle.
+
+```java
+@AfterMethod
+public void tearDown() {
+    VerifyActions.assertAll();
+    DriverManager.quitDriver();
+}
+```
+#### This ensures
+- No silent assertion failures
+- Clear and aggregated assertion reports
+- Proper WebDriver cleanup per test
+
+---
+
+### 🔹 Design Benefits
+- Clean separation between test logic and assertion logic
+- Improved test readability and maintainability
+- Parallel execution safe
+- Ready for future integrations such as screenshots on failure and Allure reporting
+
