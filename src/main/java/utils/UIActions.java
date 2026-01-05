@@ -5,6 +5,7 @@ import core.driver.DriverManager;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -32,13 +33,12 @@ public class UIActions {
         );
     }
 
-    @Step(value = "Click on element: {locator}")
+    @Step("Click on element: {locator}")
     public static void click(By locator) {
         try {
             executeWithRetry(() -> {
                 WebElement element = WaitActions.waitForClickable(locator);
                 element.click();
-                AllureStepUtil.captureStepSuccess(element.getTagName());
                 return null;
             }, "Click");
         } catch (RuntimeException e) {
@@ -67,15 +67,17 @@ public class UIActions {
     public static boolean isDisplayed(By locator) {
         try {
             return executeWithRetry(
-                    () -> DriverManager.getDriver()
-                            .findElement(locator)
-                            .isDisplayed(),
+                    () -> {
+                        WebElement element = WaitActions.waitForVisible(locator);
+                        return element != null && element.isDisplayed();
+                    },
                     "Is Displayed"
             );
         } catch (Exception e) {
             return false;
         }
     }
+
 
     public static void scrollToElement(By locator) {
         executeWithRetry(() -> {

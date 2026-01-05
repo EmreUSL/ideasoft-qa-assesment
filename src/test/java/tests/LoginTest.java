@@ -3,15 +3,23 @@ package tests;
 import assertions.AssertActions;
 import config.ConfigurationManager;
 import core.listener.TestListener;
+import io.qameta.allure.*;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import utils.AllureStepUtil;
 import utils.UIActions;
 
 @Listeners(TestListener.class)
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(priority = 1, description = "Verify to login to application")
+    @Description("Verify to login to application")
+    @Epic("EP001")
+    @Feature("Feature1: Login")
+    @Story("Story : Login ")
+    @Step("Verify Login Application")
+    @Severity(SeverityLevel.NORMAL)
     public void loginTest()
     {
         UIActions.type(LoginPage.userName, ConfigurationManager.getUserName());
