@@ -14,11 +14,6 @@ import utils.UIActions;
 public class LoginTest extends BaseTest {
 
     @Description("Verify to login to application")
-    @Epic("EP001")
-    @Feature("Feature1: Login")
-    @Story("Story : Login ")
-    @Step("Verify Login Application")
-    @Severity(SeverityLevel.NORMAL)
     @Test(priority = 1, description = "Verify to login to application")
     public void loginTest()
     {

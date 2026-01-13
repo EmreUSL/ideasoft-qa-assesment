@@ -1,11 +1,9 @@
 package utils;
 
-
 import core.driver.DriverManager;
-import io.qameta.allure.Step;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -33,93 +31,105 @@ public class UIActions {
         );
     }
 
-    @Step("Click on element: {locator}")
     public static void click(By locator) {
         try {
-            executeWithRetry(() -> {
-                WebElement element = WaitActions.waitForClickable(locator);
-                element.click();
-                return null;
-            }, "Click");
+            Allure.step("Click on element: " + locator, () -> {
+                executeWithRetry(() -> {
+                    WebElement element = WaitActions.waitForClickable(locator);
+                    element.click();
+                    return null;
+                }, "Click");
+            });
         } catch (RuntimeException e) {
-            jsClickInternal(locator);
+            Allure.step("Normal click failed, trying JS click for: " + locator, () -> {
+                jsClickInternal(locator);
+            });
         }
     }
 
-    @Step(value = "Type '{text}' into element: {locator}")
     public static void type(By locator, String text) {
-        executeWithRetry(() -> {
-            WebElement element = WaitActions.waitForVisible(locator);
-            element.clear();
-            element.sendKeys(text);
-            return null;
-        }, "Type");
+        Allure.step("Type '" + text + "' into element: " + locator, () -> {
+            executeWithRetry(() -> {
+                WebElement element = WaitActions.waitForVisible(locator);
+                element.clear();
+                element.sendKeys(text);
+                return null;
+            }, "Type");
+        });
     }
 
-    @Step("Get text from element: {locator}")
     public static String getText(By locator) {
-        return executeWithRetry(
-                () -> WaitActions.waitForVisible(locator).getText(),
-                "Get Text"
+        return Allure.step("Get text from element: " + locator, () ->
+                executeWithRetry(
+                        () -> WaitActions.waitForVisible(locator).getText(),
+                        "Get Text"
+                )
         );
     }
 
     public static boolean isDisplayed(By locator) {
         try {
-            return executeWithRetry(
-                    () -> {
+            return Allure.step("Check if element is displayed: " + locator, () ->
+                    executeWithRetry(() -> {
                         WebElement element = WaitActions.waitForVisible(locator);
                         return element != null && element.isDisplayed();
-                    },
-                    "Is Displayed"
+                    }, "Is Displayed")
             );
         } catch (Exception e) {
+            Allure.step("Element is NOT displayed: " + locator);
             return false;
         }
     }
 
-
     public static void scrollToElement(By locator) {
-        executeWithRetry(() -> {
-            WebElement element = WaitActions.waitForVisible(locator);
-            ((JavascriptExecutor) DriverManager.getDriver())
-                    .executeScript("arguments[0].scrollIntoView(true);", element);
-            return null;
-        }, "Scroll To Element");
+        Allure.step("Scroll to element: " + locator, () -> {
+            executeWithRetry(() -> {
+                WebElement element = WaitActions.waitForVisible(locator);
+                ((JavascriptExecutor) DriverManager.getDriver())
+                        .executeScript("arguments[0].scrollIntoView(true);", element);
+                return null;
+            }, "Scroll To Element");
+        });
     }
 
     public static void hover(By locator) {
-        executeWithRetry(() -> {
-            new Actions(DriverManager.getDriver())
-                    .moveToElement(WaitActions.waitForVisible(locator))
-                    .perform();
-            return null;
-        }, "Hover");
+        Allure.step("Hover on element: " + locator, () -> {
+            executeWithRetry(() -> {
+                new Actions(DriverManager.getDriver())
+                        .moveToElement(WaitActions.waitForVisible(locator))
+                        .perform();
+                return null;
+            }, "Hover");
+        });
     }
 
     public static void switchToFrame(By locator) {
-        executeWithRetry(() -> {
-            DriverManager.getDriver()
-                    .switchTo()
-                    .frame(WaitActions.waitForVisible(locator));
-            return null;
-        }, "Switch To Frame");
+        Allure.step("Switch to frame: " + locator, () -> {
+            executeWithRetry(() -> {
+                DriverManager.getDriver()
+                        .switchTo()
+                        .frame(WaitActions.waitForVisible(locator));
+                return null;
+            }, "Switch To Frame");
+        });
     }
 
     public static void switchToWindow(String windowTitle) {
-        executeWithRetry(() -> {
-            for (String handle : DriverManager.getDriver().getWindowHandles()) {
-                if (Objects.equals(
-                        DriverManager.getDriver()
-                                .switchTo()
-                                .window(handle)
-                                .getTitle(),
-                        windowTitle)) {
-                    return null;
+        Allure.step("Switch to window with title: " + windowTitle, () -> {
+            executeWithRetry(() -> {
+                for (String handle : DriverManager.getDriver().getWindowHandles()) {
+                    if (Objects.equals(
+                            DriverManager.getDriver()
+                                    .switchTo()
+                                    .window(handle)
+                                    .getTitle(),
+                            windowTitle)) {
+                        return null;
+                    }
                 }
-            }
-            throw new RuntimeException("Window not found: " + windowTitle);
-        }, "Switch To Window");
+                throw new RuntimeException("Window not found: " + windowTitle);
+            }, "Switch To Window");
+        });
     }
 
     private static void jsClickInternal(By locator) {
