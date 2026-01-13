@@ -75,7 +75,7 @@ This approach:
                                        └────────────────────────────┘
 
 ```
-
+---
 
 ## ⚙️ Configuration Management
 
@@ -139,11 +139,14 @@ config.properties → ConfigReader → ConfigurationManager → Framework Compon
 
 - CI/CD ready
 
+---
+
+
 ## 🔹 UIActions & WaitActions Layers
 
 The framework introduces two dedicated layers to manage UI synchronization and user interactions in a clean, consistent, and maintainable way.
 
-## 🔸 WaitActions
+### 🔸 WaitActions
 
 WaitActions is responsible for handling all explicit wait operations within the framework.
 It removes the need for hard-coded waits and ensures that elements are in the correct state before any interaction occurs.
@@ -188,6 +191,8 @@ UIActions.click(loginSubmitButton);
 
 Page Object classes are responsible only for defining locators and business flows.
 Direct WebDriver usage is restricted to core framework layers.
+
+---
 
 ## ✅ Assertion & Verification Layer
 
@@ -263,4 +268,85 @@ public void tearDown() {
 - Improved test readability and maintainability
 - Parallel execution safe
 - Ready for future integrations such as screenshots on failure and Allure reporting
+
+---
+
+## 📊 Allure Reporting
+
+This framework is integrated with Allure Report to provide rich, readable, and structured test execution reports.
+Allure enables detailed visibility into:
+- Test execution steps
+- Pass / fail status
+- Assertion failures
+- Retry behavior
+
+Parallel execution results
+- The reporting setup is fully compatible with CI/CD pipelines.
+
+### 🔹 Allure Step Usage
+
+The framework uses dynamic steps via io.qameta.allure.Allure.step()
+instead of annotation-based @Step usage.
+This approach provides:
+- Flexible and readable step definitions
+- Dynamic step names with runtime values
+- Cleaner test and framework code
+- Better control over reporting structure
+
+
+Example Usage
+```java
+Allure.step("Navigate to login page", () -> {
+    DriverManager.getDriver().get(ConfigurationManager.getBaseUrl());
+});
+
+Allure.step("Enter username", () -> {
+    UIActions.type(LoginPage.USERNAME_INPUT, "testuser");
+});
+
+Allure.step("Enter password", () -> {
+    UIActions.type(LoginPage.PASSWORD_INPUT, "password");
+});
+
+Allure.step("Click login button", () -> {
+    UIActions.click(LoginPage.LOGIN_BUTTON);
+});
+```
+
+Each step appears as a separate and clearly defined action in the Allure report,
+making test execution easy to follow.
+
+### ▶️ Viewing Allure Report
+
+After test execution, Allure results are generated under the allure-results directory.
+
+To open the report locally, run the following command in terminal:
+```java
+allure serve allure-results
+```
+
+
+This command:
+- Starts a temporary local web server
+- Automatically opens the Allure report in the browser
+- Requires no manual HTML generation
+
+### 🧩 Allure Design Principles
+
+- Allure logic is decoupled from test logic
+- Steps can be added at test, page, or framework layer
+- Fully compatible with parallel execution
+- CI/CD ready (Jenkins, GitHub Actions, GitLab CI)
+
+### ✅ Allure Benefits
+
+- Human-readable and professional test reports
+- Improved debugging through step-level visibility
+- Clear execution flow for technical and non-technical users
+- Extensible for future enhancements such as:
+- Screenshot on failure
+- Environment details
+- Test metadata (Epic, Feature, Story)
+
+
 
