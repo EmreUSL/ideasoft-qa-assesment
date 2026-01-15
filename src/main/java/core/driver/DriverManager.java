@@ -32,6 +32,7 @@ public class DriverManager {
                      throw new RuntimeException("Unknown browser type: " + browserType);
              }
          }
+         driver.get().manage().window().maximize();
          getDriver();
      }
 

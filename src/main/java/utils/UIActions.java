@@ -4,9 +4,12 @@ import core.driver.DriverManager;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -17,7 +20,7 @@ public class UIActions {
     private static <T> T executeWithRetry(Supplier<T> action, String actionName) {
         RuntimeException lastException = null;
 
-        for (int attempt = 1 ; attempt <= DEFAULT_RETRY_COUNT ; attempt++) {
+        for (int attempt = 1; attempt <= DEFAULT_RETRY_COUNT; attempt++) {
             try {
                 return action.get();
             } catch (RuntimeException e) {
@@ -65,6 +68,16 @@ public class UIActions {
                         "Get Text"
                 )
         );
+    }
+
+    public static void clickEnterKeyboard(By locator) {
+        Allure.step("Enter keyboard : " + locator, () -> {
+            executeWithRetry(() -> {
+                WebElement element = WaitActions.waitForVisible(locator);
+                element.sendKeys(Keys.ENTER);
+                return null;
+            }, "Type");
+        });
     }
 
     public static boolean isDisplayed(By locator) {
