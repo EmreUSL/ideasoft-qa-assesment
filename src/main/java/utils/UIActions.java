@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -103,6 +102,22 @@ public class UIActions {
                 return null;
             }, "Scroll To Element");
         });
+    }
+
+    public static String getElementAttribute(By locator, String attributeName) {
+        return Allure.step(
+                "Getting element attribute: " + locator + " : " + attributeName,
+                () -> executeWithRetry(() -> {
+                    WebElement element = WaitActions.waitForVisible(locator);
+                    String value = element.getAttribute(attributeName);
+
+                    Allure.step(
+                            "Attribute value -> " + attributeName + " = " + value
+                    );
+
+                    return value;
+                }, "Get Element Attribute")
+        );
     }
 
     public static void hover(By locator) {

@@ -12,4 +12,13 @@ public class HomePageActions {
 
     }
 
+    public static void goToProductDetails() {
+        UIActions.scrollToElement(HomePage.productView);
+        UIActions.click(HomePage.productView);
+    }
+
+    public static void goToCart() {
+        UIActions.click(HomePage.cartButton);
+    }
+
 }
