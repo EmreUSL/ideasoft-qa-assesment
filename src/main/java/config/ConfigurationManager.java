@@ -23,7 +23,19 @@ public class ConfigurationManager {
         return ConfigReader.get(ConfigKeys.USERNAME.getKey());
     }
 
-    public static String getPassword() {
-        return ConfigReader.get(ConfigKeys.PASSWORD.getKey());
+    public static String getPassword(boolean getPassword) {
+        if (getPassword) {
+            return ConfigReader.get(ConfigKeys.PASSWORD.getKey());
+        } else {
+            return ConfigReader.get(ConfigKeys.WRONGPASSWORD.getKey());
+        }
     }
+
+    public static String getName() {  return ConfigReader.get(ConfigKeys.NAME.getKey());}
+
+    public static String getSurname() {return ConfigReader.get(ConfigKeys.SURNAME.getKey());}
+
+    public static String getEmail() {return ConfigReader.get(ConfigKeys.EMAIL.getKey());}
+
+    public static String getPhoneNumber() {return ConfigReader.get(ConfigKeys.PHONENUMBER.getKey());}
 }

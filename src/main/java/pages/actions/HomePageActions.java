@@ -21,4 +21,8 @@ public class HomePageActions {
         UIActions.click(HomePage.cartButton);
     }
 
+    public static void clickSignInButton() {
+        UIActions.click(HomePage.signInButton);
+    }
+
 }

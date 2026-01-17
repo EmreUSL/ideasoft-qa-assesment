@@ -5,7 +5,13 @@ public enum ConfigKeys {
     BASE_URL("baseUrl"),
     HEADLESS("headless"),
     USERNAME("username"),
-    PASSWORD("password");
+    PASSWORD("password"),
+    WRONGPASSWORD("wrongPassword"),
+    NAME("name"),
+    SURNAME("surname"),
+    EMAIL("email"),
+    PHONENUMBER("cell");
+
 
     private final String key;
 

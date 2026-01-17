@@ -8,7 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.awt.*;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -39,6 +40,31 @@ public class UIActions {
                 executeWithRetry(() -> {
                     WebElement element = WaitActions.waitForClickable(locator);
                     element.click();
+                    return null;
+                }, "Click");
+            });
+        } catch (RuntimeException e) {
+            Allure.step("Normal click failed, trying JS click for: " + locator, () -> {
+                jsClickInternal(locator);
+            });
+        }
+    }
+
+    public static void checkedWithjs(By locator) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+            js.executeScript("arguments[0].checked = true;", locator);
+        } catch (RuntimeException e) {
+
+        }
+    }
+
+    public static void clickLocatorWithIndex(By locator, int index) {
+        try {
+            Allure.step("Click on element index: " + index + " | Locator: " + locator, () -> {
+                executeWithRetry(() -> {
+                    List<WebElement> elements = DriverManager.getDriver().findElements(locator);
+                    elements.get(index).click();
                     return null;
                 }, "Click");
             });
