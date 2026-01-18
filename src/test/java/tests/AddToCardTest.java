@@ -11,7 +11,7 @@ import pages.actions.ProductDetailPageActions;
 public class AddToCardTest extends BaseTest {
 
     @Description("Search Product and Add To Cart Successfully")
-    @Test
+    @Test(priority = 3)
     public void searchAddProductTest(){
 
         HomePageActions.clickAndSearchProduct();

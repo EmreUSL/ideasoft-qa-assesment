@@ -7,7 +7,7 @@ import utils.UIActions;
 
 public class AccountPageActions {
 
-    public static void openNewAdressPage() {
+    public static void openNewAddressPage() {
         UIActions.click(AccountPage.addressBook);
         UIActions.click(AccountPage.addNewAddress);
     }

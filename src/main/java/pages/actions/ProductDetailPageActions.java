@@ -1,6 +1,5 @@
 package pages.actions;
 
-import pages.elements.HomePage;
 import pages.elements.ProductDetailPage;
 import utils.UIActions;
 

@@ -1,7 +1,6 @@
 package tests;
 
 import assertions.AssertActions;
-import config.ConfigurationManager;
 import org.testng.annotations.Test;
 import pages.actions.AccountPageActions;
 import pages.actions.HomePageActions;
@@ -9,7 +8,7 @@ import pages.actions.LoginPageActions;
 
 public class AddNewAddressTest extends BaseTest {
 
-    @Test
+    @Test(priority = 4)
     public void addNewAddressTest() {
 
         HomePageActions.clickSignInButton();
@@ -20,7 +19,7 @@ public class AddNewAddressTest extends BaseTest {
         AssertActions.assertTrue(LoginPageActions.isLoggedIn(), "Cannot Log in");
 
         HomePageActions.goToAccount();
-        AccountPageActions.openNewAdressPage();
+        AccountPageActions.openNewAddressPage();
         AccountPageActions.enterAddressDetails();
         AccountPageActions.saveAddress();
 

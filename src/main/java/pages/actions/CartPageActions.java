@@ -1,9 +1,6 @@
 package pages.actions;
 
-import org.openqa.selenium.By;
 import pages.elements.CartPage;
-import pages.elements.HomePage;
-import pages.elements.ProductDetailPage;
 import utils.UIActions;
 
 public class CartPageActions {

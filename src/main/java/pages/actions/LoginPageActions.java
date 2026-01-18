@@ -29,4 +29,8 @@ public class LoginPageActions {
     public static boolean isLoggedIn() {
         return UIActions.isDisplayed(HomePage.homePage);
     }
+
+    public static boolean isFailedLogin() {
+        return UIActions.isDisplayed(LoginPage.cantLoginMessage);
+    }
 }

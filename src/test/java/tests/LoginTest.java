@@ -21,10 +21,11 @@ public class LoginTest extends BaseTest {
 
     @Test(priority = 2)
     public void invalidLoginTest() {
+        HomePageActions.clickSignInButton();
         LoginPageActions.setEmail();
         LoginPageActions.setWrongPassword();
         LoginPageActions.login();
 
-        AssertActions.assertFalse(LoginPageActions.isLoggedIn(), "Case failed");
+        AssertActions.assertTrue(LoginPageActions.isFailedLogin(),"Case failed");
     }
 }
