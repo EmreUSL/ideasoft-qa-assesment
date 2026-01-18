@@ -19,6 +19,22 @@ Aşağıdaki adımlar otomasyon kapsamında test edilmiştir:
 
 ---
 
+
+
+## 🛠️ Kullanılan Teknolojiler
+
+- ☕ **Programlama Dili:** Java  
+- 🤖 **Test Otomasyon Aracı:** Selenium WebDriver  
+- 🧪 **Test Framework:** TestNG  
+- 🌍 **Tarayıcı:** Google Chrome  
+- 🏗️ **Otomasyon Framework:**  
+  Kişisel olarak geliştirdiğim test otomasyon frameworkü bu projede kullandım.
+  Framework ile ilgili detaylı bilgiye aşağıdaki link üzerinden ulaşabilirsiniz:  
+  🔗 https://github.com/EmreUSL/selenium-automation-template
+
+  ---
+
+  
 ## 🖼️ Test Akışı Görselleri
 
 ### 🏠 Ana Sayfa – Arama
@@ -32,22 +48,32 @@ Aşağıdaki adımlar otomasyon kapsamında test edilmiştir:
 ### ✅ Sepete Ekleme Mesajı
 <img width="1857" height="960" alt="Screenshot 2026-01-17 at 18 55 22" src="https://github.com/user-attachments/assets/7474cc01-4f89-4350-bc2f-c00e2bb57ebe" />
 
+---
 
-### 🛒 Sepet Sayfası
-![Sepet Sayfası](images/cart-page.png)
+### 🏠 Allure Report
+Terminal ekranına **allure serve allure-results** yazarak Allure Report ekranına ulaşabilirsiniz.
+<img width="1437" height="776" alt="Screenshot 2026-01-18 at 16 38 10" src="https://github.com/user-attachments/assets/45298d6e-ce82-4a75-a8fb-6e0aaca7aa01" />
+
+
+## ➕ Ek Test Senaryoları
+
+Case kapsamında istenen ana senaryoya ek olarak, aşağıdaki test senaryoları da hazırlanmış ve başarıyla çalıştırılmıştır.  
+Bu senaryoların test akışları aşağıdaki gibidir.
+
+### 🧪 Eklenen Testler
+- 🔐 **Geçerli bilgiler ile giriş (Valid Login)**
+- 🚫 **Geçersiz bilgiler ile giriş (Invalid Login)**
+- 🏠 **Kullanıcı hesabına yeni adres ekleme**
+
+
+https://github.com/user-attachments/assets/de9b194b-2feb-4401-a8d1-76ec253c9313
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler
 
-- ☕ **Programlama Dili:** Java  
-- 🤖 **Test Otomasyon Aracı:** Selenium WebDriver  
-- 🧪 **Test Framework:** TestNG  
-- 🌍 **Tarayıcı:** Google Chrome  
-- 🏗️ **Otomasyon Framework:**  
-  Kişisel olarak geliştirdiğim test otomasyon frameworkü bu projede kullandım.
-  Framework ile ilgili detaylı bilgiye aşağıdaki link üzerinden ulaşabilirsiniz:  
-  🔗 https://github.com/EmreUSL/selenium-automation-template
+https://github.com/user-attachments/assets/a9269f1f-67c7-4d4f-97da-7416fdc5c0e1
+
+
 
 ---
 
