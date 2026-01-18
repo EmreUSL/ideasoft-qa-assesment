@@ -31,11 +31,21 @@ public class ConfigurationManager {
         }
     }
 
-    public static String getName() {  return ConfigReader.get(ConfigKeys.NAME.getKey());}
+    public static String getFirstName() {  return ConfigReader.get(ConfigKeys.FIRSTNAME.getKey());}
 
     public static String getSurname() {return ConfigReader.get(ConfigKeys.SURNAME.getKey());}
 
     public static String getEmail() {return ConfigReader.get(ConfigKeys.EMAIL.getKey());}
 
     public static String getPhoneNumber() {return ConfigReader.get(ConfigKeys.PHONENUMBER.getKey());}
+
+    public static String getAddress() {return ConfigReader.get(ConfigKeys.ADDRESS.getKey());}
+
+    public static String getTCId() {return ConfigReader.get(ConfigKeys.TCID.getKey());}
+
+    public static String getLocation() {return ConfigReader.get(ConfigKeys.LOCATION.getKey());}
+
+    public static String getTown() {return ConfigReader.get(ConfigKeys.TOWN.getKey());}
+
+    public static String getAddressTitle() {return ConfigReader.get(ConfigKeys.ADDRESSTITLE.getKey());}
 }

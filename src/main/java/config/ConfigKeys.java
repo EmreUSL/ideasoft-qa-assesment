@@ -7,10 +7,15 @@ public enum ConfigKeys {
     USERNAME("username"),
     PASSWORD("password"),
     WRONGPASSWORD("wrongPassword"),
-    NAME("name"),
+    FIRSTNAME("firstname"),
     SURNAME("surname"),
     EMAIL("email"),
-    PHONENUMBER("cell");
+    PHONENUMBER("cell"),
+    TCID("tcID"),
+    ADDRESSTITLE("addressTitle"),
+    LOCATION("location"),
+    TOWN("town"),
+    ADDRESS("address");
 
 
     private final String key;

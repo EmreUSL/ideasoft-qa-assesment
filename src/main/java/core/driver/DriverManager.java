@@ -4,8 +4,12 @@ import config.ConfigurationManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverManager {
 
@@ -18,7 +22,14 @@ public class DriverManager {
              switch (browserType) {
                  case CHROME:
                      WebDriverManager.chromedriver().setup();
-                     driver.set(new ChromeDriver());
+                     Map<String, Object> prefs = new HashMap<>();
+                     prefs.put("profile.password_manage_leak_detection", false);
+                     prefs.put("profile.credentials_enable_service", false);
+                     prefs.put("safebrowsing-disable-download-protection", null);
+                     ChromeOptions options = new ChromeOptions();
+                     options.addArguments("guest");
+                     options.setExperimentalOption("prefs", prefs);
+                     driver.set(new ChromeDriver(options));
                      break;
                  case FIREFOX:
                      WebDriverManager.firefoxdriver().setup();

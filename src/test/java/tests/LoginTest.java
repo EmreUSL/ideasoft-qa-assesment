@@ -8,7 +8,7 @@ import pages.elements.HomePage;
 
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Test(priority = 1)
     public void validLoginTest() {
         HomePageActions.clickSignInButton();
         LoginPageActions.setEmail();
@@ -19,7 +19,7 @@ public class LoginTest extends BaseTest {
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void invalidLoginTest() {
         LoginPageActions.setEmail();
         LoginPageActions.setWrongPassword();

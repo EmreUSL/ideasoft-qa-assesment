@@ -75,6 +75,43 @@ public class UIActions {
         }
     }
 
+    public static void selectItemFromList(By locator, String itemName) {
+        try {
+            Allure.step("Click on element from List: " + itemName + " | Locator: " + locator, () -> {
+                executeWithRetry(() -> {
+                    List<WebElement> elements = DriverManager.getDriver().findElements(locator);
+                    for (WebElement element : elements) {
+                        if (element.getText().equals(itemName)) {
+                            element.click();
+                            break;
+                        }
+                    }
+                    return null;
+                }, "Click");
+            });
+        } catch (RuntimeException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public static boolean checkItemExist(By locator, String itemName) {
+        try {
+            return Allure.step(
+                    "Click on element from List: " + itemName + " | Locator: " + locator,
+                    () -> executeWithRetry(() -> {
+                        List<WebElement> elements = DriverManager.getDriver().findElements(locator);
+
+                        for (WebElement element : elements) {
+                            if (element.getText().contains(itemName)) { return true; }
+                        }
+                        return false;
+                    }, "Check")
+            );
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void type(By locator, String text) {
         Allure.step("Type '" + text + "' into element: " + locator, () -> {
             executeWithRetry(() -> {

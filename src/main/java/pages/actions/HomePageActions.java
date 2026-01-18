@@ -25,4 +25,8 @@ public class HomePageActions {
         UIActions.click(HomePage.signInButton);
     }
 
+    public static void goToAccount() {
+        UIActions.click(HomePage.homePage);
+    }
+
 }
